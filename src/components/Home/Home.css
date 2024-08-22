@@ -1,0 +1,46 @@
+.home {
+  height: 91vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home_header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 40px;
+  padding-top: 20px;
+}
+
+.home_header_left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 40px;
+}
+
+.header_brand {
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.home_header_right {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 20px;
+}
+
+.help-icon {
+  cursor: pointer;
+}
+
+.help_text {
+  cursor: pointer;
+}
