@@ -13,10 +13,17 @@ export const CreatePassword = ({ setShowModal }) => {
   const [isError, setIsError] = useState(false);
 
   const onSubmitHandler = async () => {
-    if (password === conformPassword && !isError) {
+    if (
+      password === conformPassword &&
+      password.length >= 5 &&
+      conformPassword.length >= 5 &&
+      !isError
+    ) {
       localStorage.setItem(
-        "password",
-        JSON.stringify({ password: await getSHA256Hash(password) })
+        "WalletData",
+        JSON.stringify({
+          userInfo: { password: await getSHA256Hash(password) },
+        })
       );
       setIsError(false);
       setShowModal(SECRET_RECOVERY_PHRASE_MODAL);
@@ -54,7 +61,7 @@ export const CreatePassword = ({ setShowModal }) => {
             />
             {isError && (
               <span className="error">
-                Password and Confirm Password not matched!!
+                Invalid credentials(minimum 5 chars)
               </span>
             )}
           </div>

@@ -112,3 +112,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.address_copy_icon {
+  margin-left: 5px;
+}
+
+.wallet_address_right {
+  display: flex;
+  align-items: center;
+}

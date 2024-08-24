@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./WalletBody.css";
+import WalletCTA from "../WalletCTA/WalletCTA";
 
 const WalletBody = () => {
   return (
@@ -9,6 +10,7 @@ const WalletBody = () => {
         <span className="amount_type">$</span>
         <span className="amount_value">10.00</span>
       </div>
+      <WalletCTA />
       <div className="wallet_body_bottom">
         <div className="crypto_card">
           <div className="crypto_card_left">
