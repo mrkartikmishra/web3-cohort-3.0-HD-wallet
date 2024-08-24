@@ -34,7 +34,7 @@ const Wallet = () => {
   });
 
   useEffect(() => {
-    if (walletData?.accounts?.length <= 0) {
+    if (walletData.hasOwnProperty("accounts") === false) {
       createWallet().then(() => {
         const storageData =
           JSON.parse(localStorage.getItem("WalletData")) || {};
