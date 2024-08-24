@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./WalletBody.css";
 import WalletCTA from "../WalletCTA/WalletCTA";
+import { getEthereumBalance, getSolanaBalance } from "../../utils/utils";
 
 const WalletBody = () => {
+  const [walletData, setWalletData] = useState(() => {
+    return JSON.parse(localStorage.getItem("WalletData") || "");
+  });
+  const [bitcoinBalance, setBitcoinBalance] = useState("");
+  const [ethereumBalance, setEthereumBalance] = useState("0");
+  const [solanaBalance, setSolanaBalance] = useState(0);
+  const [polygon, setPolygonBalance] = useState("");
+
+  useEffect(() => {
+    const getBalance = async () => {
+      const solBalance = await getSolanaBalance(
+        walletData?.selectedAccount?.solana?.publicKey
+      );
+      const ethBalance = await getEthereumBalance(
+        walletData?.selectedAccount?.ethereum?.publicKey
+      );
+      setSolanaBalance(solBalance);
+      setEthereumBalance(ethBalance);
+    };
+    getBalance();
+  }, []);
   return (
     <div className="wallet_body_container">
       <div className="wallet_body_top">
-        <span className="amount_type">$</span>
-        <span className="amount_value">10.00</span>
+        <span className="amount_type">$$$</span>
+        {/* <span className="amount_value">$$$$</span> */}
       </div>
       <WalletCTA />
       <div className="wallet_body_bottom">
@@ -30,7 +52,7 @@ const WalletBody = () => {
             </div>
             <div className="crypto_card_left_details">
               <span className="crypto_name">Ethereum</span>
-              <span className="crypto_value">0 ETH</span>
+              <span className="crypto_value">{ethereumBalance} ETH</span>
             </div>
           </div>
         </div>
@@ -41,7 +63,7 @@ const WalletBody = () => {
             </div>
             <div className="crypto_card_left_details">
               <span className="crypto_name">Solana</span>
-              <span className="crypto_value">0 SOL</span>
+              <span className="crypto_value">{solanaBalance} SOL</span>
             </div>
           </div>
         </div>

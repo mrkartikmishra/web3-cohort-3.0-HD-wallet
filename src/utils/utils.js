@@ -6,6 +6,8 @@ import { Keypair } from "@solana/web3.js";
 import nacl from "tweetnacl";
 import { mnemonicToSeedSync } from "bip39";
 import { BIP32Factory } from "bip32";
+import { Connection, PublicKey } from "@solana/web3.js";
+import { ethers } from "ethers";
 
 const bip32 = BIP32Factory(ecc);
 
@@ -128,4 +130,32 @@ export const copySecretToClipboardhandler = (text) => {
     .catch((err) => {
       console.log("Error in opied to clipboard");
     });
+};
+
+export const getSolanaBalance = async (address) => {
+  try {
+    const connection = new Connection("https://api.devnet.solana.com");
+    const publicKey = new PublicKey(address);
+    const balance = await connection.getBalance(publicKey);
+    const balanceInSOL = balance / 1e9;
+    return balanceInSOL;
+  } catch (error) {
+    console.error("Error fetching Solana balance:", error);
+    throw error;
+  }
+};
+
+export const getEthereumBalance = async (address) => {
+  try {
+    const provider = new ethers.JsonRpcProvider(
+      `https://sepolia.infura.io/v3/${import.meta.env.VITE_INFURA_API_KEY}`
+    );
+
+    const balance = await provider.getBalance(address);
+    const balanceInEther = ethers.formatEther(balance);
+    return balanceInEther;
+  } catch (error) {
+    console.error("Error fetching Ethereum balance:", error);
+    throw error;
+  }
 };
